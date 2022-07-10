@@ -1,0 +1,39 @@
+# This is a k8s deployment file
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nestjs-api
+  labels:
+    app: nestjs-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nestjs-api
+  template:
+    metadata:
+      labels:
+        app: nestjs-api
+    spec:
+      containers:
+      - name: nestjs-api
+        image: nestjsapi:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+---
+# The service to expose the react app on local kubernetes cluster
+kind: Service
+apiVersion: v1
+metadata:
+  name: nestjs-api
+  labels:
+    app: nestjs-api
+spec:
+  type: NodePort
+  ports:
+  - port: 3000
+    nodePort: 30081
+  selector:
+    app: nestjs-api
