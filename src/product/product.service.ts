@@ -29,7 +29,7 @@ export class ProductsService {
         if (prodDescription) {
             prod.description = prodDescription;
         }
-        if (prodPrice) {
+        if (prodPrice >= 0) {
             prod.price = prodPrice;
         }
         return { ...prod };
