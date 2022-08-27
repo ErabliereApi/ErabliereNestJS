@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import configuration from './config/configuration';
-import { ChoasEngineesingMiddleware } from './middlewares/choasEngineesingMiddleware';
+import { ChoasEngineesingMiddleware } from './middlewares/choasEngineeringMiddleware';
 import { ProductModule } from './product/product.module';
 
 @Module({
