@@ -23,7 +23,7 @@ spec:
         - containerPort: 3000
           protocol: TCP
 ---
-# The service to expose the react app on local kubernetes cluster
+# The service to expose the nestjs app on local kubernetes cluster
 kind: Service
 apiVersion: v1
 metadata:
