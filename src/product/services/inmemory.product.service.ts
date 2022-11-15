@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { NotFoundError } from "rxjs";
-import { Product } from "./product.model";
+import { generateId } from "src/app/generator/idGenerator";
+import { Product } from "../product.model";
+import { IProductService } from "./iproduct.service";
 
 @Injectable()
-export class ProductsService {
+export class InMemoryProductsService implements IProductService {
     
     products: Product[] = [];
 
@@ -16,7 +17,7 @@ export class ProductsService {
     }
 
     insertProduct(title: string, description: string, price: number): string {
-        const newProduct = new Product(new Date().toString(), title, description, price)
+        const newProduct = new Product(generateId(), title, description, price)
         this.products.push(newProduct)
         return newProduct.id
     }

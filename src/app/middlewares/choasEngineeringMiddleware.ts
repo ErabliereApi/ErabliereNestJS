@@ -10,7 +10,7 @@ export class ChoasEngineesingMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     const percentageError = this.configService.get<number>('chaos.percentageError')
     const randomNumber = Math.random()
-    if (randomNumber > percentageError) {
+    if (randomNumber >= percentageError) {
       next()
     }
     else {

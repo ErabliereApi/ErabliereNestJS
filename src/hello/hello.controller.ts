@@ -1,9 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { HelloService } from './hello.service';
 
 @Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+export class HelloController {
+  constructor(private readonly appService: HelloService) {}
 
   @Get()
   getHello(): string {

@@ -1,16 +1,16 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Inject, Param, Patch, Post } from "@nestjs/common";
 import { ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { ProductData } from "./product.data.model";
 import { ProductId } from "./product.id.model";
 import { Product } from "./product.model";
-import { ProductsService } from "./product.service";
+import { IProductService } from "./services/iproduct.service";
 
 @ApiBearerAuth()
 @ApiTags('products')
 @Controller('products')
 export class ProductController {
     
-    constructor(private readonly services: ProductsService) {
+    constructor(@Inject(IProductService) private readonly services: IProductService) {
 
     }
 

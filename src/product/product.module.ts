@@ -1,10 +1,15 @@
 import { Module } from "@nestjs/common";
 import { ProductController } from "./product.controller";
-import { ProductsService } from "./product.service";
+import { InMemoryProductsService } from "./services/inmemory.product.service";
+import { IProductService } from "./services/iproduct.service";
 
 @Module({
     controllers: [ProductController],
-    providers: [ProductsService],
+    providers: [{
+        provide: IProductService,
+        useClass: InMemoryProductsService
+    }],
+    exports: [IProductService]
 })
 export class ProductModule {
 
