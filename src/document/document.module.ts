@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { DocumentController } from "./document.controller";
-import { InMemoryDocumentService } from "./services/document.service";
+import { InMemoryDocumentService } from "./services/inmemory.document.service";
 import { IDocumentService } from "./services/idocument.service";
 
 @Module({

@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Inject, Param, Put } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { DocumentIdModel } from "./document.id.model";
 import { DocumentMetadataModel } from "./document.metadata.model";
 import { PutDocumentModel } from "./put.document.model";
 import { IDocumentService } from "./services/idocument.service";
@@ -19,7 +20,7 @@ export class DocumentController {
     }
 
     @Put()
-    putDocument(@Body() document: PutDocumentModel): string {
+    putDocument(@Body() document: PutDocumentModel): DocumentIdModel {
         return this.documentService.putDocument(document);
     }
 

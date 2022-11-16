@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { generateId } from "src/app/generator/idGenerator";
+import { DocumentIdModel } from "../document.id.model";
 import { DocumentMetadataModel } from "../document.metadata.model";
 import { PutDocumentModel } from "../put.document.model";
 import { IDocumentService } from "./idocument.service";
@@ -17,7 +18,7 @@ export class InMemoryDocumentService implements IDocumentService {
         return docs;
     }
 
-    putDocument(document: PutDocumentModel): string {
+    putDocument(document: PutDocumentModel): DocumentIdModel {
         if (!document.id) {
             document.id = generateId();
         }
@@ -29,7 +30,7 @@ export class InMemoryDocumentService implements IDocumentService {
             description: document.description,
             size: size
         });
-        return id;
+        return new DocumentIdModel(id);
     }
 
     deleteDocument(id: string): void {

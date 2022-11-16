@@ -3,3 +3,6 @@ chaos:
 
 camunda:
   url: http://192.168.1.2:32001/engine-rest
+
+apiSettings:
+  bodySizeLimit: 25mb
