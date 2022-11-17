@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, OnModuleInit } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ChoasEngineesingMiddleware } from './app/middlewares/choasEngineeringMiddleware';
 import configuration from './config/configuration';
@@ -9,11 +9,11 @@ import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
-    ProductModule,
-    DocumentModule,
     ConfigModule.forRoot({
       load: [configuration]
-    })
+    }),
+    ProductModule,
+    DocumentModule,
   ],
   controllers: [HelloController],
   providers: [HelloService],

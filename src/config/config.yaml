@@ -6,3 +6,4 @@ camunda:
 
 apiSettings:
   bodySizeLimit: 25mb
+  mode: camunda

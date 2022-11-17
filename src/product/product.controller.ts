@@ -3,6 +3,7 @@ import { ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiTags } from "@nes
 import { ProductData } from "./product.data.model";
 import { ProductId } from "./product.id.model";
 import { Product } from "./product.model";
+import { ProductServiceFactory } from "./product.service.factory";
 import { IProductService } from "./services/iproduct.service";
 
 @ApiBearerAuth()
@@ -10,46 +11,48 @@ import { IProductService } from "./services/iproduct.service";
 @Controller('products')
 export class ProductController {
     
-    constructor(@Inject(IProductService) private readonly services: IProductService) {
+    private readonly services: IProductService
 
+    constructor(private readonly serviceFactory: ProductServiceFactory) {
+        this.services = this.serviceFactory.createProductService();
     }
 
     @Get()
     @ApiOkResponse({ type: [Product] })
-    getProducts(): Product[] 
+    async getProducts(): Promise<Product[]> 
     {
-        return this.services.getProducts();
+        return await this.services.getProducts();
     }
 
     @Get(':id')
     @ApiOkResponse({ type: Product })
     @ApiNotFoundResponse({ description: 'Product not found' })
-    getProduct(@Param('id') id: string): Product 
+    async getProduct(@Param('id') id: string): Promise<Product> 
     {
-        return this.services.getProduct(id);
+        return await this.services.getProduct(id);
     }
 
     @Post()
     @ApiOkResponse({ type: ProductId })
-    addProduct(@Body() product: ProductData): any 
+    async addProduct(@Body() product: ProductData): Promise<ProductId> 
     {
-        let id = this.services.insertProduct(product.title, product.description, product.price);
+        let id = await this.services.insertProduct(product.title, product.description, product.price);
         return new ProductId(id);
     }
 
     @Patch(':id')
     @ApiOkResponse({ type: Product })
-    patchProduct(@Param('id') id: string, 
-                 @Body() product: ProductData): Product 
+    async patchProduct(@Param('id') id: string, 
+                 @Body() product: ProductData): Promise<Product> 
     {
-        return this.services.updateProduct(id, product.title, product.description, product.price);
+        return await this.services.updateProduct(id, product.title, product.description, product.price);
     }
 
     @Delete(':id')
     @ApiOkResponse({ type: ProductId })
-    deleteProduct(@Param('id') id: string): any 
+    async deleteProduct(@Param('id') id: string): Promise<ProductId> 
     {
-        this.services.deleteProduct(id);
+        await this.services.deleteProduct(id);
         return new ProductId(id);
     }
 }

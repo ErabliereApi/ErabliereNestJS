@@ -8,21 +8,21 @@ export class InMemoryProductsService implements IProductService {
     
     products: Product[] = [];
 
-    getProducts(): Product[] {
-        return [ ...this.products ]
+    getProducts(): Promise<Product[]> {
+        return new Promise(resolve => resolve([ ...this.products ]))
     }
 
-    getProduct(id: string): Product | null {
-        return { ...this.findFunction(id) };
+    getProduct(id: string): Promise<Product | null> {
+        return new Promise(resolve => resolve({ ...this.findFunction(id) }));
     }
 
-    insertProduct(title: string, description: string, price: number): string {
+    insertProduct(title: string, description: string, price: number): Promise<string> {
         const newProduct = new Product(generateId(), title, description, price)
         this.products.push(newProduct)
-        return newProduct.id
+        return new Promise(resolve => resolve(newProduct.id))
     }
 
-    updateProduct(id: string, prodTitle: string, prodDescription: string, prodPrice: number): Product {
+    updateProduct(id: string, prodTitle: string, prodDescription: string, prodPrice: number): Promise<Product> {
         const prod = this.findFunction(id);
         if (prodTitle) {
             prod.title = prodTitle;
@@ -33,14 +33,15 @@ export class InMemoryProductsService implements IProductService {
         if (prodPrice >= 0) {
             prod.price = prodPrice;
         }
-        return { ...prod };
+        return new Promise<Product>(resolve => resolve({ ...prod }));
     }
 
-    deleteProduct(id: string) {
+    deleteProduct(id: string): Promise<void> {
         const prodIndex = this.products.findIndex(product => product.id === id);
         if (prodIndex > -1) {
             this.products.splice(prodIndex, 1);
         }
+        return new Promise(resolve => resolve());
     }
 
     private findFunction(id: string) {

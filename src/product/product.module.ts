@@ -1,15 +1,16 @@
-import { Module } from "@nestjs/common";
+import { HttpModule } from "@nestjs/axios";
+import { Logger, Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
 import { ProductController } from "./product.controller";
-import { InMemoryProductsService } from "./services/inmemory.product.service";
-import { IProductService } from "./services/iproduct.service";
+import { ProductServiceFactory } from "./product.service.factory";
 
 @Module({
     controllers: [ProductController],
-    providers: [{
-        provide: IProductService,
-        useClass: InMemoryProductsService
-    }],
-    exports: [IProductService]
+    providers: [
+        ProductServiceFactory,
+        Logger,
+    ],
+    imports: [HttpModule, ConfigModule]
 })
 export class ProductModule {
 
