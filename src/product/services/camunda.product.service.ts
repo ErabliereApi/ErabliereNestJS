@@ -47,7 +47,7 @@ export class CamundaProductService implements IProductService {
         return product;
     }
     async insertProduct(title: string, description: string, price: number): Promise<string> {
-        const url = this.config.get('camunda.url') + '/process-definition/key/PRODUCT_MANAGEMENT/start'
+        const url = this.config.get('camunda.url') + '/process-definition/key/' + this.config.get('camunda.processKey') + '/start'
 
         this.logger.log('Calling [POST] ' + url);
 

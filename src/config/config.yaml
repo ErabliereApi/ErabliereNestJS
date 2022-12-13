@@ -1,9 +1,20 @@
 chaos:
   percentageError: 0.00
+  percentageDelay: 1.00
+  randomDelaiMin: 0
+  randomDelaiMax: 2500
 
 camunda:
   url: http://192.168.1.2:32002/engine-rest
+  processKey: Process_06ij0ns
 
 apiSettings:
   bodySizeLimit: 25mb
-  mode: camunda
+  mode: memory
+
+logger:
+  library: winston
+  level: verbose
+  title: 'ProductAPI'
+  environment: 'development'
+  enableFileLogging: false

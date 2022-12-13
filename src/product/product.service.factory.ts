@@ -11,6 +11,8 @@ export class ProductServiceFactory {
 
     private mode = ""
 
+    private singletonService: IProductService | undefined;
+
     constructor(
         private readonly httpService: HttpService,
         private readonly config: ConfigService,
@@ -24,12 +26,19 @@ export class ProductServiceFactory {
         }
 
     createProductService(): IProductService {
+        if (this.singletonService !== undefined) {
+            this.logger.verbose('Using singleton ProductService');
+            return this.singletonService;
+        }
+
         if (this.mode === 'camunda') {
             this.logger.verbose('Using CamundaProductService');
-            return new CamundaProductService(this.httpService, this.config, this.logger);
+            this.singletonService = new CamundaProductService(this.httpService, this.config, this.logger);
         } else {
             this.logger.verbose('Using InMemoryProductsService');
-            return new InMemoryProductsService();
+            this.singletonService = new InMemoryProductsService();
         }
+
+        return this.singletonService;
     }
 }
