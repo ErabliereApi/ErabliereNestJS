@@ -11,7 +11,7 @@ Videos:
 
 ```
 npm install -g @nestjs/cli
-nestjs new project-name
+nest new project-name
 ```
 
 Run the project
