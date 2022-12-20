@@ -1,4 +1,4 @@
-import { NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as bodyParser from 'body-parser';
@@ -7,9 +7,12 @@ import { INestApplication, Logger } from '@nestjs/common';
 import { WinstonModule } from 'nest-winston';
 import winston = require("winston");
 import { LoggingInterceptor } from './app/interceptor/logging.interceptor';
+import { AppLogger } from './app/logger/app.logger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+  });
   const config = app.get(ConfigService);
   setupLogger(app, config);
   app.useGlobalInterceptors(new LoggingInterceptor(app.get(Logger)))
@@ -89,7 +92,7 @@ function setupLogger(app: INestApplication, config: ConfigService<unknown, boole
 
   if (config.get('logger.library') == 'winston') {
     Logger.debug('Using winston logger for app ' + config.get('logger.title') + ' at level ' + config.get('logger.level'));
-    app.useLogger(WinstonModule.createLogger({
+    app.useLogger(new AppLogger(WinstonModule.createLogger({
       level: config.get('logger.level'),
       defaultMeta: { 
         service: config.get('logger.title'), 
@@ -102,7 +105,7 @@ function setupLogger(app: INestApplication, config: ConfigService<unknown, boole
       transports: getTransports(config),
       exceptionHandlers: getExceptionHandlers(config),
       rejectionHandlers: getRejectionHandlers(config)
-    }));
+    }), app.get(HttpAdapterHost)));
   }
   else {
     Logger.debug('Using default logger');

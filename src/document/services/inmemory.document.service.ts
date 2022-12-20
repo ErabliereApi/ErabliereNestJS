@@ -4,11 +4,12 @@ import { DocumentIdModel } from "../document.id.model";
 import { DocumentMetadataModel } from "../document.metadata.model";
 import { PutDocumentModel } from "../put.document.model";
 import { IDocumentService } from "./idocument.service";
+import { NotFoundException } from "@nestjs/common/exceptions";
 
 @Injectable()
 export class InMemoryDocumentService implements IDocumentService {
-
     documents = new Map<string, DocumentMetadataModel>();
+    documentsData = new Map<string, string>();
 
     getDocuments(): DocumentMetadataModel[] {
         const docs = []
@@ -16,6 +17,14 @@ export class InMemoryDocumentService implements IDocumentService {
             docs.push(value);
         });
         return docs;
+    }
+
+    downloadDocument(id: string): Buffer {
+        const document = this.documentsData.get(id);
+        if (!document) {
+            throw new NotFoundException('Document not found');
+        }
+        return Buffer.from(document, 'base64');
     }
 
     putDocument(document: PutDocumentModel): DocumentIdModel {
@@ -30,10 +39,12 @@ export class InMemoryDocumentService implements IDocumentService {
             description: document.description,
             size: size
         });
+        this.documentsData.set(id, document.content);
         return new DocumentIdModel(id);
     }
 
     deleteDocument(id: string): void {
         this.documents.delete(id);
+        this.documentsData.delete(id);
     }
 }

@@ -4,6 +4,7 @@ import { PutDocumentModel } from "../put.document.model";
 
 export interface IDocumentService {
     getDocuments(): DocumentMetadataModel[]
+    downloadDocument(id: string): Buffer
     putDocument(document: PutDocumentModel): DocumentIdModel
     deleteDocument(id: string): void
 }
