@@ -1,13 +1,11 @@
-import { HttpAdapterHost, NestFactory } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as bodyParser from 'body-parser';
 import { ConfigService } from '@nestjs/config';
 import { INestApplication, Logger } from '@nestjs/common';
-import { WinstonModule } from 'nest-winston';
-import winston = require("winston");
 import { LoggingInterceptor } from './app/interceptor/logging.interceptor';
-import { AppLogger } from './app/logger/app.logger';
+import { setupLogger } from './app/logger/setup.logger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -42,73 +40,3 @@ function setupSwagger(app: INestApplication) {
   const document = SwaggerModule.createDocument(app, documentBuilder);
   SwaggerModule.setup('api', app, document);
 }
-
-function setupLogger(app: INestApplication, config: ConfigService<unknown, boolean>) {
-
-  function getTransports(config: ConfigService<unknown, boolean>): winston.transport | winston.transport[] {
-    if (config.get('logger.enableFileLogging')) {
-      Logger.debug('Using file logging')
-      return [
-        new winston.transports.Console(),
-        new winston.transports.File({ filename: 'error.log', level: 'error' }),
-        new winston.transports.File({ filename: 'combined.log' }),
-      ]
-    }
-    Logger.debug('Using console logging')
-    return [new winston.transports.Console()]
-  }
-
-  function getExceptionHandlers(config: ConfigService<unknown, boolean>): any {
-    if (config.get('logger.enableFileLogging')) {
-      return [
-        new winston.transports.Console({
-          format: winston.format.simple()
-        }),
-        new winston.transports.File({ filename: "exceptions.log" })
-      ]
-    }
-    return [
-      new winston.transports.Console({
-        format: winston.format.simple()
-      })
-    ]
-  }
-
-  function getRejectionHandlers(config: ConfigService<unknown, boolean>): any {
-    if (config.get('logger.enableFileLogging')) {
-      return [
-        new winston.transports.Console({
-          format: winston.format.simple()
-        }),
-        new winston.transports.File({ filename: "rejections.log" })
-      ]
-    }
-    return [
-      new winston.transports.Console({
-        format: winston.format.simple()
-      })
-    ]
-  }
-
-  if (config.get('logger.library') == 'winston') {
-    Logger.debug('Using winston logger for app ' + config.get('logger.title') + ' at level ' + config.get('logger.level'));
-    app.useLogger(new AppLogger(WinstonModule.createLogger({
-      level: config.get('logger.level'),
-      defaultMeta: { 
-        service: config.get('logger.title'), 
-        environment: config.get('logger.environment')
-      },
-      format: winston.format.combine(
-        winston.format.timestamp(),
-        winston.format.json()
-      ),
-      transports: getTransports(config),
-      exceptionHandlers: getExceptionHandlers(config),
-      rejectionHandlers: getRejectionHandlers(config)
-    }), app.get(HttpAdapterHost)));
-  }
-  else {
-    Logger.debug('Using default logger');
-  }
-}
-
