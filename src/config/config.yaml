@@ -1,6 +1,6 @@
 chaos:
   percentageError: 0.00
-  percentageDelay: 1.00
+  percentageDelay: 0.00
   randomDelaiMin: 0
   randomDelaiMax: 2500
 
