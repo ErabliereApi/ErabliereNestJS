@@ -1,16 +1,16 @@
-chaos:
-  percentageError: 0.00
-  percentageDelay: 0.00
-  randomDelaiMin: 0
-  randomDelaiMax: 2500
+apiSettings:
+  bodySizeLimit: 25mb
+  mode: memory
 
 camunda:
   url: http://192.168.1.2:32002/engine-rest
   processKey: Process_06ij0ns
 
-apiSettings:
-  bodySizeLimit: 25mb
-  mode: memory
+chaos:
+  percentageError: 0.00
+  percentageDelay: 0.00
+  randomDelaiMin: 0
+  randomDelaiMax: 2500
 
 logger:
   library: winston
