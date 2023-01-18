@@ -10,7 +10,7 @@ export default () => {
     readFileSync(join(__dirname, YAML_CONFIG_FILENAME), 'utf8'),
   ) as Record<string, any>;
 
-  Logger.debug(JSON.stringify(config))
+  Logger.verbose(JSON.stringify(config))
 
   // Override config with environment variables
   // First get the first level of preperty in the config
@@ -18,8 +18,8 @@ export default () => {
   for (const prop in config) {
     const levelTwo = config[prop];
     for (const prop2 in levelTwo) {
-      Logger.verbose(`Checking for environment variable ${prop}.${prop2}`)
-      const envVar = process.env[prop + '.' + prop2];
+      Logger.verbose(`Checking for environment variable ${prop}__${prop2}`)
+      const envVar = process.env[prop + '__' + prop2];
       if (envVar) {
         Logger.log(
           `Overriding config value ${prop}.${prop2} with environment variable ${envVar}`,
@@ -29,7 +29,7 @@ export default () => {
     }
   }
 
-  Logger.debug(JSON.stringify(process.env))
+  Logger.verbose(JSON.stringify(process.env))
 
   return config;
 };
