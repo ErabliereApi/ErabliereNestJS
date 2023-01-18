@@ -12,6 +12,7 @@ async function bootstrap() {
     bufferLogs: true,
   });
   const config = app.get(ConfigService);
+  app.setGlobalPrefix(config.get('apiSettings.prefix'));
   setupLogger(app, config);
   app.useGlobalInterceptors(new LoggingInterceptor(app.get(Logger)))
   setupBodyParserLimit(app, config);

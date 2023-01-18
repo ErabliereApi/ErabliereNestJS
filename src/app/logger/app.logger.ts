@@ -1,11 +1,12 @@
-import { HttpAdapterHost, LoggerService } from "@nestjs/common";
+import { HttpAdapterHost, Injectable, LoggerService, Scope } from "@nestjs/common";
 
+@Injectable({ scope: Scope.REQUEST })
 export class AppLogger implements LoggerService {
 
   /**
    *
    */
-  constructor(private logger: LoggerService, private host: HttpAdapterHost) {
+  constructor(private logger: LoggerService) {
     
   }
 

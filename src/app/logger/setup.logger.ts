@@ -3,7 +3,6 @@ import { ConfigService } from "@nestjs/config"
 import { format, transport, transports } from "winston"
 import { AppLogger } from "./app.logger"
 import { WinstonModule } from "nest-winston"
-import { HttpAdapterHost } from "@nestjs/core"
 
 export function setupLogger(app: INestApplication, config: ConfigService<unknown, boolean>) {
 
@@ -67,7 +66,7 @@ export function setupLogger(app: INestApplication, config: ConfigService<unknown
         transports: getTransports(config),
         exceptionHandlers: getExceptionHandlers(config),
         rejectionHandlers: getRejectionHandlers(config)
-      }), app.get(HttpAdapterHost)));
+      })));
     }
     else {
       Logger.debug('Using default logger');
