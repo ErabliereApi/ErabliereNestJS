@@ -1,9 +1,11 @@
-import { CallHandler, ExecutionContext, Logger, NestInterceptor } from "@nestjs/common";
+import { CallHandler, ExecutionContext, Injectable, Logger, NestInterceptor, Scope } from "@nestjs/common";
 import { Observable, tap } from "rxjs";
+import { AppLogger } from "../logger/app.logger";
 
+@Injectable({ scope: Scope.REQUEST })
 export class LoggingInterceptor implements NestInterceptor {
 
-  constructor(private readonly logger: Logger) {
+  constructor(private readonly logger: AppLogger) {
     if (logger === undefined) {
       throw new Error('Logger is undefined');
     }

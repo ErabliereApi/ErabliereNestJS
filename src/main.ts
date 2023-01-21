@@ -4,7 +4,6 @@ import { AppModule } from './app.module';
 import * as bodyParser from 'body-parser';
 import { ConfigService } from '@nestjs/config';
 import { INestApplication, Logger } from '@nestjs/common';
-import { LoggingInterceptor } from './app/interceptor/logging.interceptor';
 import { setupLogger } from './app/logger/setup.logger';
 
 async function bootstrap() {
@@ -14,7 +13,6 @@ async function bootstrap() {
   const config = app.get(ConfigService);
   app.setGlobalPrefix(config.get('apiSettings.prefix'));
   setupLogger(app, config);
-  app.useGlobalInterceptors(new LoggingInterceptor(app.get(Logger)))
   setupBodyParserLimit(app, config);
   app.enableCors();
   setupSwagger(app);

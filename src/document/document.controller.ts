@@ -6,14 +6,18 @@ import { PutDocumentModel } from "./put.document.model";
 import { IDocumentService } from "./services/idocument.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Response } from "express";
+import { DocumentServiceFactory } from "./document.service.factory";
 
 @ApiBearerAuth()
 @ApiTags('documents')
 @Controller('documents')
 export class DocumentController {
+
+    private readonly documentService: IDocumentService
     
     constructor(
-        @Inject(IDocumentService) private readonly documentService: IDocumentService) {
+        private readonly factory: DocumentServiceFactory) {
+            this.documentService = this.factory.createDocumentService()
     }
 
     @Get()

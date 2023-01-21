@@ -1,16 +1,16 @@
 import { HttpModule } from "@nestjs/axios";
-import { Logger, Module } from "@nestjs/common";
+import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { ProductController } from "./product.controller";
 import { ProductServiceFactory } from "./product.service.factory";
+import { AppLoggerModule } from "src/app/logger/logger.module";
 
 @Module({
     controllers: [ProductController],
     providers: [
-        ProductServiceFactory,
-        Logger,
+        ProductServiceFactory
     ],
-    imports: [HttpModule, ConfigModule]
+    imports: [HttpModule, ConfigModule, AppLoggerModule]
 })
 export class ProductModule {
 

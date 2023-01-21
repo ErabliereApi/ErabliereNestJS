@@ -1,17 +1,16 @@
 import { Module } from "@nestjs/common";
 import { DocumentController } from "./document.controller";
-import { InMemoryDocumentService } from "./services/inmemory.document.service";
-import { IDocumentService } from "./services/idocument.service";
 import { HttpModule } from "@nestjs/axios";
+import { DocumentServiceFactory } from "./document.service.factory";
+import { ConfigModule } from "@nestjs/config";
+import { AppLoggerModule } from "src/app/logger/logger.module";
 
 @Module({
     controllers: [DocumentController],
-    providers: [{
-        provide: IDocumentService,
-        useClass: InMemoryDocumentService
-    }],
-    exports: [IDocumentService],
-    imports: [HttpModule]
+    providers: [
+        DocumentServiceFactory
+    ],
+    imports: [HttpModule, ConfigModule, AppLoggerModule]
 })
 export class DocumentModule {
     

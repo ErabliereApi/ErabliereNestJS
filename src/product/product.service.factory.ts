@@ -5,6 +5,8 @@ import { ConfigService } from "@nestjs/config";
 import { CamundaProductService } from "./services/camunda.product.service";
 import { InMemoryProductsService } from "./services/inmemory.product.service";
 import { IProductService } from "./services/iproduct.service";
+import { RelayProductService } from "./services/relay.product.service";
+import { AppLogger } from "src/app/logger/app.logger";
 
 @Injectable()
 export class ProductServiceFactory {
@@ -16,7 +18,7 @@ export class ProductServiceFactory {
     constructor(
         private readonly httpService: HttpService,
         private readonly config: ConfigService,
-        private readonly logger: Logger) {
+        private readonly logger: AppLogger) {
             if (this.config === undefined) {
                 throw new Error('ConfigService is undefined');
             }
@@ -34,6 +36,9 @@ export class ProductServiceFactory {
         if (this.mode === 'camunda') {
             this.logger.verbose('Using CamundaProductService');
             this.singletonService = new CamundaProductService(this.httpService, this.config, this.logger);
+        } if (this.mode === 'relay') {
+            this.logger.verbose('Using RelayProductService');
+            this.singletonService = new RelayProductService(this.httpService, this.config, this.logger);  
         } else {
             this.logger.verbose('Using InMemoryProductsService');
             this.singletonService = new InMemoryProductsService();

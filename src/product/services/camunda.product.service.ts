@@ -3,11 +3,12 @@ import { LoggerService } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Product } from "../product.model";
 import { IProductService } from "./iproduct.service";
+import { AppLogger } from "src/app/logger/app.logger";
 
 export class CamundaProductService implements IProductService {
     constructor(private readonly httpService: HttpService,
         private readonly config: ConfigService,
-        private readonly logger: LoggerService) {
+        private readonly logger: AppLogger) {
 
     }
     async getProducts(): Promise<Product[]> {

@@ -2,6 +2,7 @@ apiSettings:
   bodySizeLimit: 25mb
   mode: memory
   prefix: /
+  relayUrl: http://192.168.1.2:32012
 
 camunda:
   url: http://192.168.1.2:32002/engine-rest

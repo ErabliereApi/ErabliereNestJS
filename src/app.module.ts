@@ -8,23 +8,32 @@ import { DocumentModule } from './document/document.module';
 import { HelloController } from './hello/hello.controller';
 import { HelloService } from './hello/hello.service';
 import { ProductModule } from './product/product.module';
+import { AppLoggerModule } from './app/logger/logger.module';
+import { LogContextInitialiserMiddleware } from './app/middlewares/log.context.initialiser.Middleware';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [configuration]
     }),
+    AppLoggerModule,
     ProductModule,
     DocumentModule,
   ],
   controllers: [HelloController],
   providers: [
-    HelloService
+    HelloService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor
+    }
   ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
+      .apply(LogContextInitialiserMiddleware)
+      .forRoutes("*")
       .apply(ChoasEngineesingMiddleware)
       .forRoutes('*');
   }
