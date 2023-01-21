@@ -1,5 +1,5 @@
 import { HttpService } from "@nestjs/axios";
-import { Logger } from "@nestjs/common";
+import { Scope } from "@nestjs/common";
 import { Injectable } from "@nestjs/common/decorators/core/injectable.decorator";
 import { ConfigService } from "@nestjs/config";
 import { CamundaProductService } from "./services/camunda.product.service";
@@ -7,8 +7,9 @@ import { InMemoryProductsService } from "./services/inmemory.product.service";
 import { IProductService } from "./services/iproduct.service";
 import { RelayProductService } from "./services/relay.product.service";
 import { AppLogger } from "src/app/logger/app.logger";
+import { ContextLogger } from "src/app/logger/context.logger";
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class ProductServiceFactory {
 
     private mode = ""
@@ -18,7 +19,8 @@ export class ProductServiceFactory {
     constructor(
         private readonly httpService: HttpService,
         private readonly config: ConfigService,
-        private readonly logger: AppLogger) {
+        private readonly logger: AppLogger,
+        private readonly contextLogger: ContextLogger) {
             if (this.config === undefined) {
                 throw new Error('ConfigService is undefined');
             }
@@ -32,6 +34,14 @@ export class ProductServiceFactory {
             this.logger.verbose('Using singleton ProductService');
             return this.singletonService;
         }
+
+        // Add an interceptor to the httpService to add the trackingId and the transtionId to the request
+        this.httpService.axiosRef.interceptors.request.use(config => {
+            this.logger.verbose('Adding trackingId and transactionId to request', { axiosTrackingId: this.contextLogger.trackingId, axiosTransactionId: this.contextLogger.transationId });
+            config.headers['X-TrackingId'] = this.contextLogger.trackingId;
+            config.headers['X-TransactionId'] = this.contextLogger.transationId;
+            return config;
+        });
 
         if (this.mode === 'camunda') {
             this.logger.verbose('Using CamundaProductService');

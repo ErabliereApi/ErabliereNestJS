@@ -1,4 +1,4 @@
-import { Injectable, LoggerService, Scope } from "@nestjs/common";
+import { ConsoleLogger, Injectable, Logger, LoggerService, Scope } from "@nestjs/common";
 import { ContextLogger } from "./context.logger";
 import { ConfigService } from "@nestjs/config";
 import { getWinstonLogger } from "./config.functions";

@@ -6,27 +6,44 @@ import { Logger } from "@nestjs/common";
 import { AppLogger } from "src/app/logger/app.logger";
 
 export class RelayProductService implements IProductService {
+
+    private readonly relayUrl: string;
+
     constructor(
         private readonly httpService: HttpService,
         private readonly config: ConfigService,
         private readonly logger: AppLogger
     ) {
+        this.relayUrl = this.config.get('apiSettings.relayUrl');
     }
 
-    getProducts(): Promise<Product[]> {
-        throw new Error("Method not implemented.");
+    async getProducts(): Promise<Product[]> {
+        const response = await this.httpService.get<Product[]>(this.relayUrl + '/products').toPromise()
+        return response.data;
     }
-    getProduct(id: string): Promise<Product> {
-        throw new Error("Method not implemented.");
+    async getProduct(id: string): Promise<Product> {
+        const response = await this.httpService.get<Product>(this.relayUrl + '/products/' + id).toPromise()
+        return response.data;
     }
-    insertProduct(title: string, description: string, price: number): Promise<string> {
-        throw new Error("Method not implemented.");
+    async insertProduct(title: string, description: string, price: number): Promise<string> {
+        const response = await this.httpService.post(this.relayUrl + '/products', {
+            title: title,
+            description: description,
+            price: price
+        }).toPromise()
+        return response.data.id;
     }
-    updateProduct(id: string, prodTitle: string, prodDescription: string, prodPrice: number): Promise<Product> {
-        throw new Error("Method not implemented.");
+    async updateProduct(id: string, prodTitle: string, prodDescription: string, prodPrice: number): Promise<Product> {
+        const response = await this.httpService.patch(this.relayUrl + '/products', {
+            id: id,
+            title: prodTitle,
+            description: prodDescription,
+            price: prodPrice
+        }).toPromise()
+        return response.data;
     }
-    deleteProduct(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
+    async deleteProduct(id: string): Promise<void> {
+        await this.httpService.delete(this.relayUrl + '/products/' + id).toPromise()
     }
 
 }
