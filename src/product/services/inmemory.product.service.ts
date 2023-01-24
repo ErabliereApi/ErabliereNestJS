@@ -6,10 +6,10 @@ import { IProductService } from "./iproduct.service";
 @Injectable()
 export class InMemoryProductsService implements IProductService {
     
-    products: Product[] = [];
+    private static products: Product[] = [];
 
     getProducts(): Promise<Product[]> {
-        return new Promise(resolve => resolve([ ...this.products ]))
+        return new Promise(resolve => resolve([ ...InMemoryProductsService.products ]))
     }
 
     getProduct(id: string): Promise<Product | null> {
@@ -18,7 +18,7 @@ export class InMemoryProductsService implements IProductService {
 
     insertProduct(title: string, description: string, price: number): Promise<string> {
         const newProduct = new Product(generateId(), title, description, price)
-        this.products.push(newProduct)
+        InMemoryProductsService.products.push(newProduct)
         return new Promise(resolve => resolve(newProduct.id))
     }
 
@@ -37,15 +37,15 @@ export class InMemoryProductsService implements IProductService {
     }
 
     deleteProduct(id: string): Promise<void> {
-        const prodIndex = this.products.findIndex(product => product.id === id);
+        const prodIndex = InMemoryProductsService.products.findIndex(product => product.id === id);
         if (prodIndex > -1) {
-            this.products.splice(prodIndex, 1);
+            InMemoryProductsService.products.splice(prodIndex, 1);
         }
         return new Promise(resolve => resolve());
     }
 
     private findFunction(id: string) {
-        const product = this.products.find(product => product.id === id);
+        const product = InMemoryProductsService.products.find(product => product.id === id);
         if (!product) {
             throw new NotFoundException('Could not find product with id: ' + id);
         }
