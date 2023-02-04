@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "772f4cef-6337-40fc-9a0f-5403a0f5abf8",
+		"_postman_id": "683726db-4ce5-4a08-aa4f-94c0f169d8cf",
 		"name": "LearnNestJS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "6202256"
@@ -265,6 +265,31 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"var uuid = require('uuid')",
+					"",
+					"pm.request.headers.add({ key: 'X-TrackingId', value: uuid.v4() })",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test('Valider TrackingId', () => {",
+					"    pm.expect(pm.response.headers.get('X-TrackingId')).to.eq(pm.request.headers.get('X-TrackingId'))",
+					"})"
+				]
+			}
 		}
 	],
 	"variable": [
