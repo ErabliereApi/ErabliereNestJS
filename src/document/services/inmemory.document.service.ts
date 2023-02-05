@@ -1,10 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import { generateId } from "src/app/generator/idGenerator";
 import { DocumentIdModel } from "../document.id.model";
 import { DocumentMetadataModel } from "../document.metadata.model";
 import { PutDocumentModel } from "../put.document.model";
 import { IDocumentService } from "./idocument.service";
 import { NotFoundException } from "@nestjs/common/exceptions";
+import { randomUUID } from "crypto";
 
 @Injectable()
 export class InMemoryDocumentService implements IDocumentService {
@@ -29,7 +29,7 @@ export class InMemoryDocumentService implements IDocumentService {
 
     putDocument(document: PutDocumentModel): DocumentIdModel {
         if (!document.id) {
-            document.id = generateId();
+            document.id = randomUUID();
         }
         const id = document.id;
         const size = Buffer.from(document.content, 'base64').length
