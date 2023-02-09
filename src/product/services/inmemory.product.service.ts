@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { generateId } from "src/app/generator/idGenerator";
 import { Product } from "../product.model";
 import { IProductService } from "./iproduct.service";
+import { randomUUID } from "crypto";
 
 @Injectable()
 export class InMemoryProductsService implements IProductService {
@@ -17,7 +17,7 @@ export class InMemoryProductsService implements IProductService {
     }
 
     insertProduct(title: string, description: string, price: number): Promise<string> {
-        const newProduct = new Product(generateId(), title, description, price)
+        const newProduct = new Product(randomUUID(), title, description, price)
         InMemoryProductsService.products.push(newProduct)
         return new Promise(resolve => resolve(newProduct.id))
     }
