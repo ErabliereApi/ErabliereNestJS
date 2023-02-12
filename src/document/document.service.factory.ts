@@ -39,7 +39,7 @@ export class DocumentServiceFactory {
             this.logger.verbose('Using RelayDocumentService');
             this.singletonService = new RelayDocumentService(this.httpService, this.config, this.logger);  
         } else {
-            this.logger.verbose('Using InMemoryProductsService');
+            this.logger.verbose('Using InMemoryDocumentService');
             this.singletonService = new InMemoryDocumentService();
         }
 

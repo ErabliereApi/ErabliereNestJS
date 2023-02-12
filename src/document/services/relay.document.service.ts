@@ -4,7 +4,6 @@ import { DocumentMetadataModel } from "../document.metadata.model";
 import { PutDocumentModel } from "../put.document.model";
 import { IDocumentService } from "./idocument.service";
 import { ConfigService } from "@nestjs/config";
-import { Logger } from "@nestjs/common";
 import { AppLogger } from "src/app/logger/app.logger";
 
 export class RelayDocumentService implements IDocumentService {

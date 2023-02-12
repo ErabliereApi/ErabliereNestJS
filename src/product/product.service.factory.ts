@@ -46,7 +46,7 @@ export class ProductServiceFactory {
         if (this.mode === 'camunda') {
             this.logger.verbose('Using CamundaProductService');
             this.singletonService = new CamundaProductService(this.httpService, this.config, this.logger);
-        } if (this.mode === 'relay') {
+        } else if (this.mode === 'relay') {
             this.logger.verbose('Using RelayProductService');
             this.singletonService = new RelayProductService(this.httpService, this.config, this.logger);  
         } else {
