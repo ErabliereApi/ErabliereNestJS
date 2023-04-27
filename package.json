@@ -22,10 +22,10 @@
   },
   "dependencies": {
     "@nestjs/axios": "^1.0.1",
-    "@nestjs/common": "^9.3.12",
+    "@nestjs/common": "^9.4.0",
     "@nestjs/config": "^2.3.0",
-    "@nestjs/core": "^9.3.12",
-    "@nestjs/platform-express": "^9.3.12",
+    "@nestjs/core": "^9.4.0",
+    "@nestjs/platform-express": "^9.4.0",
     "@nestjs/swagger": "^6.3.0",
     "js-yaml": "^4.1.0",
     "nest-winston": "^1.9.1",
