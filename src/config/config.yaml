@@ -1,4 +1,5 @@
 apiSettings:
+  serviceUrl: http://localhost:3000
   bodySizeLimit: 25mb
   mode: memory # memory, camunda or relay
   prefix: /

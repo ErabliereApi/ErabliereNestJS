@@ -7,6 +7,7 @@ import { IDocumentService } from "./services/idocument.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Response } from "express";
 import { DocumentServiceFactory } from "./document.service.factory";
+import { ConfigService } from "@nestjs/config";
 
 @ApiBearerAuth()
 @ApiTags('documents')
@@ -16,13 +17,20 @@ export class DocumentController {
     private readonly documentService: IDocumentService
     
     constructor(
-        private readonly factory: DocumentServiceFactory) {
+        private readonly factory: DocumentServiceFactory,
+        private readonly configService: ConfigService) {
             this.documentService = this.factory.createDocumentService()
     }
 
     @Get()
     getDocuments(): DocumentMetadataModel[] {
-        return this.documentService.getDocuments();
+        const docs = this.documentService.getDocuments();
+
+        docs.forEach(d => {
+            d.downloadUrl = this.configService.get('apiSettings.serviceUrl') + '/documents/' + d.id
+        })
+
+        return docs
     }
 
     @Get(':id')

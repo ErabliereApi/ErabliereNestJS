@@ -3,4 +3,5 @@ export class DocumentMetadataModel {
     name: string;
     description: string;
     size: number;
+    downloadUrl?: string;
 }
