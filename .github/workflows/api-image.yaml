@@ -20,9 +20,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # Build the image
       - name: Docker build
-        run: docker build -t learnnestjs:latest .
+        run: docker build -t erabliereapi/product-api:latest .
         
