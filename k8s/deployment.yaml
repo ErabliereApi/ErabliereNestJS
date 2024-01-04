@@ -19,6 +19,13 @@ spec:
       - name: nestjs-api
         image: nestjsapi:latest
         imagePullPolicy: Never
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: "512Mi"
+          requests:
+            cpu: "0.1"
+            memory: "128Mi"
         ports:
         - containerPort: 3000
           protocol: TCP
