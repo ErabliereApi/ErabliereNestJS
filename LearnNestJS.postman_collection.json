@@ -34,12 +34,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/products",
-					"protocol": "http",
+					"raw": "{{url}}/products",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"products"
 					]
@@ -70,12 +68,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/products",
-					"protocol": "http",
+					"raw": "{{url}}/products",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"products"
 					]
@@ -102,12 +98,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/products/{{id}}",
-					"protocol": "http",
+					"raw": "{{url}}/products/{{id}}",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"products",
 						"{{id}}"
@@ -135,12 +129,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/products/test",
-					"protocol": "http",
+					"raw": "{{url}}/products/test",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"products",
 						"test"
@@ -177,12 +169,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/products/{{id}}",
-					"protocol": "http",
+					"raw": "{{url}}/products/{{id}}",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"products",
 						"{{id}}"
@@ -219,12 +209,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/products/{{id}}",
-					"protocol": "http",
+					"raw": "{{url}}/products/{{id}}",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"products",
 						"{{id}}"
@@ -252,12 +240,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/products/{{id}}",
-					"protocol": "http",
+					"raw": "{{url}}/products/{{id}}",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"products",
 						"{{id}}"
@@ -296,6 +282,11 @@
 		{
 			"key": "id",
 			"value": ""
+		},
+		{
+			"key": "url",
+			"value": "http://127.0.0.1:3000",
+			"type": "string"
 		}
 	]
 }
