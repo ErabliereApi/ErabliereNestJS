@@ -21,6 +21,12 @@ cd project-name
 npm run start:dev
 ```
 
+### Run postman test
+
+```
+newman run .\LearnNestJS.postman_collection.json
+```
+
 ## Docker
 
 ### ```docker build -t nestjsapi .```
