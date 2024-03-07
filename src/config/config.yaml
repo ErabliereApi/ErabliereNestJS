@@ -21,3 +21,7 @@ logger:
   title: 'ProductAPI'
   environment: 'development'
   enableFileLogging: false
+
+agora:
+  appId: 'your-app-id'
+  appCertificate: 'your-app-certificate'

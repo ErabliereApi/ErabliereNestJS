@@ -10,6 +10,7 @@ import { HelloService } from './hello/hello.service';
 import { ProductModule } from './product/product.module';
 import { AppLoggerModule } from './app/logger/logger.module';
 import { LogContextInitialiserMiddleware } from './app/middlewares/log.context.initialiser.Middleware';
+import { AccessTokenModule } from './accesstoken/accesstoken.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { LogContextInitialiserMiddleware } from './app/middlewares/log.context.i
     AppLoggerModule,
     ProductModule,
     DocumentModule,
+    AccessTokenModule
   ],
   controllers: [HelloController],
   providers: [
