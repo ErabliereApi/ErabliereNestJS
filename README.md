@@ -29,12 +29,26 @@ newman run .\LearnNestJS.postman_collection.json
 
 ## Docker
 
-### ```docker build -t nestjsapi .```
+```
+docker build -t erabliereapi/product-api .
+```
 
-### ```docker run -d -p 3000:3000 nestjsapi```
+```
+docker run -d -p 3000:3000 erabliereapi/product-api
+```
 
 ## Kubernetes
 
-### ```kubectl create namespace crudapp```
+```
+kubectl create namespace crudapp
+```
 
-### ```kubectl apply -f .\k8s\deployment.yaml -n crudapp```
+```
+kubectl apply -f .\k8s\deployment.yaml -n crudapp
+```
+
+also deploy on of the service in the k8s folder. nodeport for local cluster et clusterip for the cloud.
+
+## Agora.io
+
+See accessToken controller.
