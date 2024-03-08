@@ -16,13 +16,34 @@ on:
       - '*.md'
   workflow_dispatch:
 
+env:
+  REGISTRY_HOSTNAME: erabliereapi
+  IMAGE_NAME: product-api
+  IMAGE_TAG: latest
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
+      # Login into dockerhub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.registryUsername }}
+          password: ${{ secrets.registryPassword }}
+
       # Build the image
       - name: Docker build
-        run: docker build -t erabliereapi/product-api:latest .
-        
+        run: docker build -t $IMAGE_NAME:$IMAGE_TAG .
+
+      # Tag the images
+      - name: Docker tag
+        if: ${{ github.ref == 'refs/heads/master' }}
+        run: docker tag $IMAGE_NAME:$IMAGE_TAG $REGISTRY_HOSTNAME/$IMAGE_NAME:$IMAGE_TAG
+
+      # Push the image
+      - name: Docker push
+        if: ${{ github.ref == 'refs/heads/master' }}
+        run: docker push $REGISTRY_HOSTNAME/$IMAGE_NAME:$IMAGE_TAG
