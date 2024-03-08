@@ -2,45 +2,30 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: nestjs-api
+  name: agora-chat-localbackend
   labels:
-    app: nestjs-api
+    app: agora-chat-localbackend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nestjs-api
+      app: agora-chat-localbackend
   template:
     metadata:
       labels:
-        app: nestjs-api
+        app: agora-chat-localbackend
     spec:
       containers:
-      - name: nestjs-api
-        image: nestjsapi:latest
-        imagePullPolicy: Never
+      - name: agora-chat-localbackend
+        image: erabliereapi/product-api:latest
+        imagePullPolicy: Always
         resources:
           limits:
-            cpu: "0.5"
-            memory: "512Mi"
+            cpu: "0.25"
+            memory: "200Mi"
           requests:
             cpu: "0.1"
-            memory: "128Mi"
+            memory: "100Mi"
         ports:
         - containerPort: 3000
           protocol: TCP
----
-# The service to expose the nestjs app on local kubernetes cluster
-kind: Service
-apiVersion: v1
-metadata:
-  name: nestjs-api
-  labels:
-    app: nestjs-api
-spec:
-  type: NodePort
-  ports:
-  - port: 3000
-    nodePort: 30081
-  selector:
-    app: nestjs-api

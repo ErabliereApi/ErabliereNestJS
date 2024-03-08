@@ -1,0 +1,14 @@
+# The service to expose the nestjs app on kubernetes cluster
+kind: Service
+apiVersion: v1
+metadata:
+  name: agora-chat-localbackend
+  labels:
+    app: agora-chat-localbackend
+spec:
+  type: ClusterIP
+  ports:
+  - port: 3000
+    targetPort: 3000
+  selector:
+    app: agora-chat-localbackend
