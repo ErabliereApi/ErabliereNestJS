@@ -10,8 +10,23 @@ export class AccessTokenController {
 
     /* https://github.com/AgoraIO/Tools/blob/master/DynamicKey/AgoraDynamicKey/nodejs/server/DemoServer.js */
     @Get(':uid')
-    async getAccessToken(@Param('uid') uid: number, @Query('channel') channel: string): Promise<{ uid: number, channel: string, accessToken: string}> {
-        const accessToken = await this.accessTokenService.getAccessToken(channel, uid);
+    async getAccessToken(
+        @Param('uid') uid: number, 
+        @Query('channel') channel: string|undefined,
+        @Query('role') role: string|undefined = 'publisher',
+        @Query('tokenType') tokenType: string|undefined = 'rtc')
+            : Promise<{ uid: number, channel: string, accessToken: string}> {
+        
+        if (tokenType === 'rtm') {
+            const accessToken = await this.accessTokenService.getRtmAccessToken(uid);
+            return {
+                uid: uid,
+                channel: '',
+                accessToken: accessToken
+            }
+        }
+
+        const accessToken = await this.accessTokenService.getRtcAccessToken(channel, uid);
         return {
             uid: uid,
             channel: channel,
