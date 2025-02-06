@@ -1,4 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger/dist/decorators";
+import { ItemVariant, Product } from "./product.model";
+import { generateId } from "src/app/generator/idGenerator";
 
 export class ProductData {  
     constructor(
@@ -19,4 +21,23 @@ export class ProductData {
 
     @ApiProperty()
     price: number
+
+    @ApiProperty({ isArray: true, type: () => ItemVariantData })
+    itemVariants: ItemVariantData[]
+}
+
+export class ItemVariantData {
+    constructor(
+        size: string,
+        color: string
+    ) {
+        this.size = size
+        this.color = color
+    }
+
+    @ApiProperty()
+    size?: string
+
+    @ApiProperty()
+    color?: string
 }

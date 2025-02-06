@@ -36,7 +36,7 @@ export class ProductController {
     @ApiOkResponse({ type: ProductId })
     async addProduct(@Body() product: ProductData): Promise<ProductId> 
     {
-        let id = await this.services.insertProduct(product.title, product.description, product.price);
+        let id = await this.services.insertProduct(product.title, product.description, product.price, product.itemVariants);
         return new ProductId(id);
     }
 

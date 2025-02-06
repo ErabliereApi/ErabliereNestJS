@@ -1,9 +1,9 @@
 import { HttpService } from "@nestjs/axios";
-import { LoggerService } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Product } from "../product.model";
 import { IProductService } from "./iproduct.service";
 import { AppLogger } from "src/app/logger/app.logger";
+import { firstValueFrom } from "rxjs";
 
 export class CamundaProductService implements IProductService {
     constructor(private readonly httpService: HttpService,
@@ -16,7 +16,7 @@ export class CamundaProductService implements IProductService {
 
         this.logger.log('Calling [GET] ' + url);
 
-        const processInstances = await this.httpService.get(url).toPromise();
+        const processInstances = await firstValueFrom(this.httpService.get(url));
 
         const products = processInstances.data.map((processInstance: any) => {
             return {
@@ -34,7 +34,7 @@ export class CamundaProductService implements IProductService {
 
         this.logger.log('Calling [GET] ' + url);
 
-        const processInstances = await this.httpService.get(url).toPromise();
+        const processInstances = await firstValueFrom(this.httpService.get(url));
 
         const processInstance = processInstances.data;
 
@@ -42,7 +42,8 @@ export class CamundaProductService implements IProductService {
             id: processInstance.id,
             title: processInstance.businessKey,
             description: "",
-            price: 0
+            price: 0,
+            itemVariants: []
         };
 
         return product;
@@ -71,7 +72,7 @@ export class CamundaProductService implements IProductService {
         }
 
         try {
-            const response = await this.httpService.post(url, body).toPromise();
+            const response = await firstValueFrom(this.httpService.post(url, body));
 
             return response.data.id;
         }
@@ -81,14 +82,10 @@ export class CamundaProductService implements IProductService {
         }
     }
     async updateProduct(id: string, prodTitle: string, prodDescription: string, prodPrice: number): Promise<Product> {
-        return new Promise<Product>((resolve, reject) => {
-            reject("Not implemented");
-        });
+        return Promise.reject(new Error("Not implemented"));
     }
     async deleteProduct(id: string): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            reject("Not implemented");
-        });
+        return Promise.reject(new Error("Not implemented"));
     }
 
 

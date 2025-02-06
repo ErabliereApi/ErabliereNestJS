@@ -1,0 +1,798 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/": {
+            "get": {
+                "operationId": "HelloController_getHello",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Hello"
+                ]
+            }
+        },
+        "/products": {
+            "get": {
+                "operationId": "ProductController_getProducts",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Product"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "tags": [
+                    "products"
+                ]
+            },
+            "post": {
+                "operationId": "ProductController_addProduct",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductData"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductId"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductId"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "tags": [
+                    "products"
+                ]
+            }
+        },
+        "/products/{id}": {
+            "get": {
+                "operationId": "ProductController_getProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "tags": [
+                    "products"
+                ]
+            },
+            "patch": {
+                "operationId": "ProductController_patchProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductData"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "tags": [
+                    "products"
+                ]
+            },
+            "delete": {
+                "operationId": "ProductController_deleteProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductId"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "tags": [
+                    "products"
+                ]
+            }
+        },
+        "/documents": {
+            "get": {
+                "operationId": "DocumentController_getDocuments",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DocumentMetadataModel"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "tags": [
+                    "documents"
+                ]
+            },
+            "put": {
+                "operationId": "DocumentController_putDocument",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PutDocumentModel"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DocumentIdModel"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "tags": [
+                    "documents"
+                ]
+            }
+        },
+        "/documents/{id}": {
+            "get": {
+                "operationId": "DocumentController_downloadDocument",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "tags": [
+                    "documents"
+                ]
+            },
+            "delete": {
+                "operationId": "DocumentController_deleteDocument",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "tags": [
+                    "documents"
+                ]
+            }
+        },
+        "/documents/upload": {
+            "post": {
+                "operationId": "DocumentController_postDocument",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DocumentIdModel"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "tags": [
+                    "documents"
+                ]
+            }
+        },
+        "/accesstoken/{uid}": {
+            "get": {
+                "operationId": "AccessTokenController_getAccessToken",
+                "parameters": [
+                    {
+                        "name": "uid",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "channel",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "role",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "tokenType",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "tags": [
+                    "accesstoken"
+                ]
+            }
+        },
+        "/accesstoken/appId/view": {
+            "get": {
+                "operationId": "AccessTokenController_getAppId",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "tags": [
+                    "accesstoken"
+                ]
+            }
+        },
+        "/recording/acquire/{channelName}": {
+            "post": {
+                "operationId": "RecordingController_acquire",
+                "parameters": [
+                    {
+                        "name": "channelName",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "uid",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "tags": [
+                    "recording"
+                ]
+            }
+        },
+        "/recording/start/{channelName}": {
+            "post": {
+                "operationId": "RecordingController_start",
+                "parameters": [
+                    {
+                        "name": "channelName",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "resourceId",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "uid",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "mode",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "tags": [
+                    "recording"
+                ]
+            }
+        },
+        "/recording/stop/{channelName}": {
+            "post": {
+                "operationId": "RecordingController_stop",
+                "parameters": [
+                    {
+                        "name": "channelName",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "resourceId",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sid",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "uid",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "mode",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "tags": [
+                    "recording"
+                ]
+            }
+        },
+        "/recording/query/{resourceId}": {
+            "get": {
+                "operationId": "RecordingController_query",
+                "parameters": [
+                    {
+                        "name": "resourceId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sid",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "mode",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "tags": [
+                    "recording"
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "Product API",
+        "description": "An API for products and learn NestJS",
+        "version": "1.0",
+        "contact": {}
+    },
+    "tags": [
+        {
+            "name": "products",
+            "description": ""
+        },
+        {
+            "name": "documents",
+            "description": ""
+        },
+        {
+            "name": "accesstoken",
+            "description": ""
+        }
+    ],
+    "servers": [],
+    "components": {
+        "securitySchemes": {
+            "bearer": {
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "type": "http"
+            }
+        },
+        "schemas": {
+            "Product": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "itemVariants": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ItemVariant"
+                        }
+                    }
+                },
+                "required": [
+                    "id",
+                    "title",
+                    "description",
+                    "price",
+                    "itemVariants"
+                ]
+            },
+            "ItemVariant": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "string"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "product": {
+                        "$ref": "#/components/schemas/Product"
+                    }
+                },
+                "required": [
+                    "id",
+                    "size",
+                    "color",
+                    "product"
+                ]
+            },
+            "ItemVariantData": {
+                "type": "object",
+                "properties": {
+                    "size": {
+                        "type": "string"
+                    },
+                    "color": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "size",
+                    "color"
+                ]
+            },
+            "ProductData": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "itemVariants": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ItemVariantData"
+                        }
+                    }
+                },
+                "required": [
+                    "title",
+                    "description",
+                    "price",
+                    "itemVariants"
+                ]
+            },
+            "ProductId": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id"
+                ]
+            },
+            "DocumentMetadataModel": {
+                "type": "object",
+                "properties": {}
+            },
+            "PutDocumentModel": {
+                "type": "object",
+                "properties": {}
+            },
+            "DocumentIdModel": {
+                "type": "object",
+                "properties": {}
+            }
+        }
+    }
+}

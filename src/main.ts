@@ -29,7 +29,7 @@ function setupBodyParserLimit(app: INestApplication, config: ConfigService) {
 
 function setupSwagger(app: INestApplication) {
   const documentBuilder = new DocumentBuilder()
-    .setTitle('Product API')
+    .setTitle('ErabliereAPI-NestJS')
     .setDescription('An API for products and learn NestJS')
     .setVersion('1.0')
     .addTag('products')
