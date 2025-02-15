@@ -15,10 +15,12 @@ export class InMemoryProductsService implements IProductService {
         const withoutCircularRefs = ps.map(p => ({ ...p }));
 
         for (const product of withoutCircularRefs) {
-            product.itemVariants = product.itemVariants.map(iv => ({ ...iv }));
+            product.itemVariants = product.itemVariants?.map(iv => ({ ...iv }));
 
-            for (const itemVariant of product.itemVariants) {
-                itemVariant.product = null;
+            if (product.itemVariants) {
+                for (const itemVariant of product.itemVariants) {
+                    itemVariant.product = null;
+                }
             }
         }
 

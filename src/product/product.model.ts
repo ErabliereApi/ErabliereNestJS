@@ -8,13 +8,13 @@ export class Product {
         title: string,
         description: string,
         price: number,
-        itemVariants: ItemVariantData[]
+        itemVariants?: ItemVariantData[]
     ) {
         this.id = id
         this.title = title
         this.description = description
         this.price = price
-        this.itemVariants = itemVariants.map(itemVariant => 
+        this.itemVariants = itemVariants?.map(itemVariant => 
             new ItemVariant(generateId(), itemVariant.size, itemVariant.color, this));
     }
 
