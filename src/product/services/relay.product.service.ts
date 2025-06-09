@@ -16,6 +16,9 @@ export class RelayProductService implements IProductService {
     ) {
         this.relayUrl = this.config.get('apiSettings.relayUrl');
     }
+    addImagesToProduct(id: string, imagePaths: string[]): Promise<any> {
+        throw new Error("Method not implemented.");
+    }
 
     async getProducts(): Promise<Product[]> {
         const response = await firstValueFrom(this.httpService.get<Product[]>(this.relayUrl + '/products'));

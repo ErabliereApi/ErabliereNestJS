@@ -32,6 +32,9 @@ export class Product {
 
     @ApiProperty({ isArray: true, type: () => ItemVariant })
     itemVariants: ItemVariant[]
+
+    @ApiProperty({ type: () => Array<string>, required: false })
+    images?: string[]
 }
 
 export class ItemVariant {

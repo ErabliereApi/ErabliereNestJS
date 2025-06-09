@@ -11,6 +11,9 @@ export class CamundaProductService implements IProductService {
         private readonly logger: AppLogger) {
 
     }
+    addImagesToProduct(id: string, imagePaths: string[]): Promise<any> {
+        throw new Error("Method not implemented.");
+    }
     async getProducts(): Promise<Product[]> {
         const url = this.config.get('camunda.url') + '/process-instance'
 

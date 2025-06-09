@@ -5,6 +5,7 @@ export interface IProductService {
     getProducts(): Promise<Product[]>
     getProduct(id: string): Promise<Product | null>
     insertProduct(title: string, description: string, price: number, itemVariants: ItemVariantData[]): Promise<string>
+    addImagesToProduct(id: string, imagePaths: string[]): Promise<any>
     updateProduct(id: string, prodTitle: string, prodDescription: string, prodPrice: number): Promise<Product>
     deleteProduct(id: string): Promise<void>
 }

@@ -6,7 +6,7 @@ import { ItemVariantData } from "../product.data.model";
 
 @Injectable()
 export class InMemoryProductsService implements IProductService {
-    
+       
     private static readonly products: Product[] = [];
 
     async getProducts(): Promise<Product[]> {
@@ -35,6 +35,15 @@ export class InMemoryProductsService implements IProductService {
         const newProduct = new Product(generateId(), title, description, price, itemVariants)
         InMemoryProductsService.products.push(newProduct)
         return Promise.resolve(newProduct.id);
+    }
+
+    addImagesToProduct(id: string, imagePaths: string[]): Promise<any> {
+        const prod = this.findFunction(id);
+        if (!prod.images) {
+            prod.images = [];
+        }
+        prod.images.push(...imagePaths);
+        return Promise.resolve({ id: prod.id, images: prod.images });
     }
 
     updateProduct(id: string, prodTitle: string, prodDescription: string, prodPrice: number): Promise<Product> {
