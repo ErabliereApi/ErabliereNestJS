@@ -11,6 +11,9 @@ export class CamundaProductService implements IProductService {
         private readonly logger: AppLogger) {
 
     }
+    getProductPicture(id: string): Promise<import("stream")> {
+        throw new Error("Method not implemented.");
+    }
     addImagesToProduct(id: string, imagePaths: string[]): Promise<any> {
         throw new Error("Method not implemented.");
     }

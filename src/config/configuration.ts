@@ -26,6 +26,15 @@ export default () => {
         );
         config[prop][prop2] = envVar;
       }
+      else {
+        const envVarDoted = process.env[prop + '.' + prop2];
+        if (envVarDoted) {
+          Logger.log(
+            `Overriding config value ${prop}.${prop2} with environment variable ${envVarDoted}`,
+          );
+          config[prop][prop2] = envVarDoted;
+        }
+      }
     }
   }
 

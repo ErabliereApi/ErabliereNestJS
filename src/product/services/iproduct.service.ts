@@ -1,7 +1,9 @@
+import Stream from "stream"
 import { ItemVariantData } from "../product.data.model"
 import { Product } from "../product.model"
 
 export interface IProductService {
+    getProductPicture(id: string): Promise<Stream>
     getProducts(): Promise<Product[]>
     getProduct(id: string): Promise<Product | null>
     insertProduct(title: string, description: string, price: number, itemVariants: ItemVariantData[]): Promise<string>

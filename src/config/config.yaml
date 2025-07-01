@@ -1,9 +1,16 @@
 apiSettings:
   serviceUrl: http://localhost:3000
   bodySizeLimit: 25mb
-  mode: memory # memory, camunda or relay
+  mode: businessCentral # memory, camunda, relay or businessCentral
   prefix: /
   relayUrl: http://localhost:3010
+
+businessCentral:
+  url: https://api.businesscentral.dynamics.com/v2.0
+  tenantId: 'your-tenant-id'
+  clientId: 'your-client-id'
+  clientSecret: 'your-client-secret'
+  scope: 'https://api.businesscentral.dynamics.com/.default'
 
 camunda:
   url: http://localhost:32002/engine-rest

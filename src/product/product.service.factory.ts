@@ -8,11 +8,13 @@ import { IProductService } from "./services/iproduct.service";
 import { RelayProductService } from "./services/relay.product.service";
 import { AppLogger } from "src/app/logger/app.logger";
 import { ContextLogger } from "src/app/logger/context.logger";
+import { AccessTokenService } from "src/businesscentral/access-token.service";
+import { BusinessCentralProductService } from "./services/businesscentral.product.service";
 
 @Injectable({ scope: Scope.REQUEST })
 export class ProductServiceFactory {
 
-    private mode = ""
+    private readonly mode: string = "";
 
     private singletonService: IProductService | undefined;
 
@@ -49,6 +51,9 @@ export class ProductServiceFactory {
         } else if (this.mode === 'relay') {
             this.logger.verbose('Using RelayProductService');
             this.singletonService = new RelayProductService(this.httpService, this.config, this.logger);  
+        } else if (this.mode === 'businessCentral') {
+            this.logger.verbose('Using BusinessCentralProductService');
+            this.singletonService = new BusinessCentralProductService(this.httpService, this.config, this.logger, new AccessTokenService(this.config, this.httpService, this.logger));
         } else {
             this.logger.verbose('Using InMemoryProductsService');
             this.singletonService = new InMemoryProductsService();

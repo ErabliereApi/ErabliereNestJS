@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UploadedFiles, UseInterceptors } from "@nestjs/common";
-import { ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, Res, UploadedFiles, UseInterceptors } from "@nestjs/common";
+import { ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags } from "@nestjs/swagger";
 import { ProductData } from "./product.data.model";
 import { ProductId } from "./product.id.model";
 import { Product } from "./product.model";
@@ -7,6 +7,7 @@ import { ProductServiceFactory } from "./product.service.factory";
 import { IProductService } from "./services/iproduct.service";
 import { FilesInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
+import { Response } from "express";
 
 @ApiBearerAuth()
 @ApiTags('products')
@@ -21,7 +22,12 @@ export class ProductController {
 
     @Get()
     @ApiOkResponse({ type: [Product] })
-    async getProducts(): Promise<Product[]> {
+    @ApiParam({ name: '$top', required: false, description: 'Number of products to return' })
+    @ApiParam({ name: '$skip', required: false, description: 'Number of products to skip' })
+    async getProducts(
+        @Query('$top') $top?: number,
+        @Query('$skip') $skip?: number
+    ): Promise<Product[]> {
         return await this.services.getProducts();
     }
 
@@ -30,6 +36,15 @@ export class ProductController {
     @ApiNotFoundResponse({ description: 'Product not found' })
     async getProduct(@Param('id') id: string): Promise<Product> {
         return await this.services.getProduct(id);
+    }
+
+    @Get(':id/picture')
+    @ApiOkResponse({ type: String, description: 'The picture' })
+    @ApiOkResponse({ schema: { type: 'string', format: 'binary' }, description: 'The picture as a binary stream' })
+    async getProductPicture(@Param('id') id: string, @Res() res: Response): Promise<void> {
+        const stream = await this.services.getProductPicture(id);
+        res.set('Content-Type', 'image/jpeg');
+        stream.pipe(res);
     }
 
     @Post()

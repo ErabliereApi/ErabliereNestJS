@@ -6,6 +6,9 @@ import { ItemVariantData } from "../product.data.model";
 
 @Injectable()
 export class InMemoryProductsService implements IProductService {
+    getProductPicture(id: string): Promise<import("stream")> {
+        throw new Error("Method not implemented.");
+    }
        
     private static readonly products: Product[] = [];
 
