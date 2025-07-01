@@ -24,7 +24,7 @@ chaos:
 
 logger:
   library: winston
-  level: verbose
+  level: error
   title: 'ProductAPI'
   environment: 'development'
   enableFileLogging: false

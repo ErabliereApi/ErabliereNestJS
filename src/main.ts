@@ -33,6 +33,7 @@ function setupSwagger(app: INestApplication) {
     .setDescription('An API for products and learn NestJS')
     .setVersion('1.0')
     .addTag('products')
+    .addTag('saleorders')
     .addTag('documents')
     .addTag('accesstoken')
     .addBearerAuth()

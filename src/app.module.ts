@@ -12,6 +12,7 @@ import { AppLoggerModule } from './app/logger/logger.module';
 import { LogContextInitialiserMiddleware } from './app/middlewares/log.context.initialiser.Middleware';
 import { AccessTokenModule } from './accesstoken/accesstoken.module';
 import { RecordingModule } from './recording/recording.module';
+import { SaleOrderModule } from './salesorder/saleorder.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { RecordingModule } from './recording/recording.module';
     ProductModule,
     DocumentModule,
     AccessTokenModule,
-    RecordingModule
+    RecordingModule,
+    SaleOrderModule
   ],
   controllers: [HelloController],
   providers: [

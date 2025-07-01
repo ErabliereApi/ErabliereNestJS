@@ -98,7 +98,7 @@ export class BusinessCentralSaleOrderService implements ISaleOrderService {
             this.httpService.post<any>(url, {
                 orderDate: postSaleOrder.orderDate,
                 customerNumber: postSaleOrder.customerNumber,
-                items: postSaleOrder.products.map(p => ({
+                items: postSaleOrder.products?.map(p => ({
                     id: p.productId,
                     quantity: p.quantity
                 }))
@@ -111,8 +111,19 @@ export class BusinessCentralSaleOrderService implements ISaleOrderService {
                 }
             )
         );
+        if (response.status === 400) {
+            const jsonError = response.data;
+            if (jsonError.error?.message) {
+                this.logger.error(`Bad request when creating salesOrder: ${jsonError.error.code} ${jsonError.error.message}`);
+                throw new Error(`Bad request when creating salesOrder: ${jsonError.error.code} ${jsonError.error.message}`);
+            }
+            else {
+                this.logger.error(`Bad request when creating salesOrder: ${JSON.stringify(jsonError)}`);
+                throw new Error(`Bad request when creating salesOrder: ${JSON.stringify(jsonError)}`);
+            }
+        }
         if (response.status !== 201) {
-            this.logger.error(`Failed to create salesOrder: ${response.statusText}`);
+            this.logger.error(`Failed to create salesOrder: ${response.data}`);
             throw new Error(`Failed to create salesOrder: ${response.statusText}`);
         }
         this.logger.log(`Created salesOrder with id ${response.data.id} in Business Central.`);
