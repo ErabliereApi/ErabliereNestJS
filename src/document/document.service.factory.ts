@@ -4,8 +4,8 @@ import { ConfigService } from "@nestjs/config";
 import { RelayDocumentService } from "./services/relay.document.service";
 import { InMemoryDocumentService } from "./services/inmemory.document.service";
 import { HttpService } from "@nestjs/axios";
-import { AppLogger } from "src/app/logger/app.logger";
-import { ContextLogger } from "src/app/logger/context.logger";
+import { AppLogger } from "../app/logger/app.logger";
+import { ContextLogger } from "../app/logger/context.logger";
 
 @Injectable({ scope: Scope.REQUEST })
 export class DocumentServiceFactory {   

@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { generateId } from "src/app/generator/idGenerator";
+import { generateId } from "../../app/generator/idGenerator";
 import { DocumentIdModel } from "../document.id.model";
 import { DocumentMetadataModel } from "../document.metadata.model";
 import { PutDocumentModel } from "../put.document.model";
@@ -8,8 +8,8 @@ import { NotFoundException } from "@nestjs/common/exceptions";
 
 @Injectable()
 export class InMemoryDocumentService implements IDocumentService {
-    private static documents = new Map<string, DocumentMetadataModel>();
-    private static documentsData = new Map<string, string>();
+    private static readonly documents = new Map<string, DocumentMetadataModel>();
+    private static readonly documentsData = new Map<string, string>();
 
     getDocuments(): DocumentMetadataModel[] {
         const docs = []
