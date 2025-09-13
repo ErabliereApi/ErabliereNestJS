@@ -4,7 +4,7 @@ import { RecordingService } from './recording.service';
 import { ConfigModule } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
 import { AccessTokenService } from "../accesstoken/accesstoken.service";
-import { AppLoggerModule } from 'src/app/logger/logger.module';
+import { AppLoggerModule } from '../app/logger/logger.module';
 
 @Module({
     controllers: [RecordingController],

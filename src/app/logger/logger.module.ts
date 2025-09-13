@@ -2,7 +2,7 @@ import { Logger, Module } from "@nestjs/common";
 import { AppLogger } from "./app.logger";
 import { ContextLogger } from "./context.logger";
 import { ConfigModule } from "@nestjs/config";
-import configuration from "src/config/configuration";
+import configuration from "../../config/configuration";
 import { SingletonAppLogger } from "./singleton.app.logger";
 
 @Module({
