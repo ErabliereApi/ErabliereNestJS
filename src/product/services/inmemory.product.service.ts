@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { generateId } from "src/app/generator/idGenerator";
+import { generateId } from "../../app/generator/idGenerator";
 import { Product } from "../product.model";
 import { IProductService } from "./iproduct.service";
 import { ItemVariantData } from "../product.data.model";

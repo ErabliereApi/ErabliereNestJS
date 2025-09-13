@@ -6,8 +6,8 @@ import { CamundaProductService } from "./services/camunda.product.service";
 import { InMemoryProductsService } from "./services/inmemory.product.service";
 import { IProductService } from "./services/iproduct.service";
 import { RelayProductService } from "./services/relay.product.service";
-import { AppLogger } from "src/app/logger/app.logger";
-import { ContextLogger } from "src/app/logger/context.logger";
+import { AppLogger } from "../app/logger/app.logger";
+import { ContextLogger } from "../app/logger/context.logger";
 
 @Injectable({ scope: Scope.REQUEST })
 export class ProductServiceFactory {

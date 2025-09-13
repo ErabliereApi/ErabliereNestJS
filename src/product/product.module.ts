@@ -3,7 +3,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { ProductController } from "./product.controller";
 import { ProductServiceFactory } from "./product.service.factory";
-import { AppLoggerModule } from "src/app/logger/logger.module";
+import { AppLoggerModule } from "../app/logger/logger.module";
 
 @Module({
     controllers: [ProductController],

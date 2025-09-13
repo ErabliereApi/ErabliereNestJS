@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger/dist/decorators";
 import { ItemVariantData } from "./product.data.model";
-import { generateId } from "src/app/generator/idGenerator";
+import { generateId } from "../app/generator/idGenerator";
 
 export class Product {  
     constructor(
