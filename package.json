@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@azure/storage-blob": "^12.29.1",
-    "@nestjs/cli": "^11.0.14",
+    "@nestjs/cli": "^11.0.16",
     "@nestjs/schematics": "^11.0.9",
     "@nestjs/testing": "^11.1.9",
     "@types/express": "^5.0.6",
