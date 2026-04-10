@@ -23,10 +23,10 @@
   "dependencies": {
     "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.1.17",
-    "@nestjs/config": "^4.0.3",
+    "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.1.16",
     "@nestjs/platform-express": "^11.1.16",
-    "@nestjs/swagger": "^11.2.6",
+    "@nestjs/swagger": "^11.2.7",
     "agora-token": "^2.0.5",
     "body-parser": "^2.2.2",
     "js-yaml": "^4.1.1",
