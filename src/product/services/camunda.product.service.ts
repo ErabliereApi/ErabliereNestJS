@@ -2,7 +2,7 @@ import { HttpService } from "@nestjs/axios";
 import { ConfigService } from "@nestjs/config";
 import { Product } from "../product.model";
 import { IProductService } from "./iproduct.service";
-import { AppLogger } from "src/app/logger/app.logger";
+import { AppLogger } from "../../app/logger/app.logger";
 import { firstValueFrom } from "rxjs";
 
 export class CamundaProductService implements IProductService {

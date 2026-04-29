@@ -157,7 +157,7 @@ export class RecordingService {
                 }
             });
             return response.data;
-        } catch (e) {
+        } catch (e: any) {
             console.log(e);
             // if status is 404, it means the recording is not found. Return the body of the error response
             if (e.response.status === 404) {
