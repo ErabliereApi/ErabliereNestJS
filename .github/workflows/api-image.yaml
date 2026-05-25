@@ -25,7 +25,7 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
 
       # Install dependencies
       - name: Install dependencies
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: run-tests
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
 
       # Login into dockerhub when not running in pull request
       - name: Login to Docker Hub
