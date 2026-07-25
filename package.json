@@ -28,8 +28,8 @@
     "@nestjs/platform-express": "^11.1.28",
     "@nestjs/swagger": "^11.4.2",
     "agora-token": "^2.0.5",
-    "body-parser": "^2.2.2",
-    "js-yaml": "^5.2.1",
+    "body-parser": "^2.3.0",
+    "js-yaml": "^5.2.2",
     "nest-winston": "^1.10.2",
     "rxjs": "^7.8.2",
     "winston": "^3.19.0"
