@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger/dist/decorators";
+import { ApiProperty } from "@nestjs/swagger";
 import { ItemVariantData } from "./product.data.model";
 import { generateId } from "../app/generator/idGenerator";
 

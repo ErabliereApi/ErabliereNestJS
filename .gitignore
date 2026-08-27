@@ -37,3 +37,4 @@ lerna-debug.log*
 # Typescript
 tsconfig.build.json
 tsconfig.build.tsbuildinfo
+tsconfig.tsbuildinfo

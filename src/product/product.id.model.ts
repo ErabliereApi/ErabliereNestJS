@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger/dist/decorators";
+import { ApiProperty } from "@nestjs/swagger"
 
 export class ProductId {  
     constructor(
